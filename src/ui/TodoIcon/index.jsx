@@ -1,9 +1,11 @@
 import CheckSVG from "./check.svg?react";
+import EditSVG from "./edit.svg?react";
 import DeleteSVG from "./delete.svg?react";
 import './TodoIcon.css';
 
 const iconTypes = {
   "check": (color) => <CheckSVG className="Icon-svg" fill={color} />,
+  "edit": (color) => <EditSVG className="Icon-svg" fill={color} />,
   "delete": (color) => <DeleteSVG className="Icon-svg" fill={color} />,
 };
 
