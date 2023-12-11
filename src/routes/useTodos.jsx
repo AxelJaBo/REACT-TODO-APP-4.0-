@@ -4,7 +4,6 @@ import { useLocalStorage } from "./useLocalStorage";
 function useTodos() {
     const { item: todos, saveItem: saveTodos, sincronizeItem: sincronizeTodos, loading, error } = useLocalStorage('TODOS_V2', []);
     const [searchValue, setSearchValue] = useState('');
-    const [openModal, setOpenModal] = useState(false);
 
     const completedTodos = todos.filter(
         todo => !!todo.completed
@@ -39,6 +38,15 @@ function useTodos() {
         saveTodos(newTodos);
     };
 
+    const editTodo = (id, newText) => {
+        const newTodos = [...todos];
+        const todoIndex = newTodos.findIndex(
+            (todo) => todo.id === id
+        );
+        newTodos[todoIndex].text = newText;
+        saveTodos(newTodos);
+    };
+
     const deleteTodo = (id) => {
         const newTodos = [...todos];
         const todoIndex = newTodos.findIndex(
@@ -55,15 +63,14 @@ function useTodos() {
         completedTodos,
         searchValue,
         searchedTodos,
-        openModal,
     };
     const stateUpdaters = {
         setSearchValue,
         addTodo,
         completeTodo,
+        editTodo,
         deleteTodo,
-        setOpenModal,
-        sincronizeTodos
+        sincronizeTodos,
     };
 
     return { states, stateUpdaters };
