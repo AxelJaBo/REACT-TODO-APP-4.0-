@@ -29,6 +29,11 @@ function useTodos() {
         saveTodos(newTodos);
     };
 
+    const getTodo = (id) => {
+        const todoIndex = todos.findIndex(todo => todo.id === id);
+        return todos[todoIndex];
+    }
+
     const completeTodo = (id) => {
         const newTodos = [...todos];
         const todoIndex = newTodos.findIndex(
@@ -56,13 +61,14 @@ function useTodos() {
         saveTodos(newTodos);
     };
 
-    const states = {
+    const state = {
         loading,
         error,
         totalTodos,
         completedTodos,
         searchValue,
         searchedTodos,
+        getTodo,
     };
     const stateUpdaters = {
         setSearchValue,
@@ -73,11 +79,11 @@ function useTodos() {
         sincronizeTodos,
     };
 
-    return { states, stateUpdaters };
+    return { state, stateUpdaters };
 };
 
-function newTodoId(todoList){
-    if(!todoList.length){
+function newTodoId(todoList) {
+    if (!todoList.length) {
         return 1;
     }
     const idList = todoList.map(todo => todo.id);

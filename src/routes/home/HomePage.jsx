@@ -16,7 +16,7 @@ import { ChangeAlert } from '../../ui/ChangeAlert';
 
 function HomePage() {
     const navigate = useNavigate();
-    const { states, stateUpdaters } = useTodos();
+    const { state, stateUpdaters } = useTodos();
 
     const {
         loading,
@@ -26,7 +26,7 @@ function HomePage() {
         searchValue,
         searchedTodos,
         // openModal,
-    } = states;
+    } = state;
 
     const {
         setSearchValue,
@@ -68,7 +68,14 @@ function HomePage() {
                         key={todo.id}
                         text={todo.text}
                         completed={todo.completed}
-                        onEdit={() => navigate('/edit/' + todo.id)}
+                        onEdit={() => {
+                            navigate(
+                                '/edit/' + todo.id,
+                                {
+                                    state: { todo }
+                                },
+                            );
+                        }}
                         onComplete={() => completeTodo(todo.id)}
                         onDelete={() => deleteTodo(todo.id)}
                     />
